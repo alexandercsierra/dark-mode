@@ -16,7 +16,7 @@ const Signup = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         setSignup(values);
-        clearForm(e);
+        clearForm(e)
         window.localStorage.setItem('signup', JSON.stringify(values));
     }
 
