@@ -1,18 +1,19 @@
 import React, {useState} from 'react'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useForm from '../hooks/useForm'
+import {useHistory} from 'react-router-dom'
 
 const Login = () => {
+    const history = useHistory();
     const signupInfo = useLocalStorage('signup');
-    const [user, setUser] = useState(signupInfo);
+    const [user] = useState(signupInfo);
     console.log('user is ', user);
-
-    // const [values, handleChanges, clearForm] = useForm('signup');
 
     const [login, setLogin] = useState({
         email: '',
         password: ''
     })
+    const [message, setMessage] = useState("");
 
     const handleChange = e => {
         setLogin({
@@ -25,8 +26,10 @@ const Login = () => {
         e.preventDefault();
         if (user[0].email === login.email && user[0].password === login.password){
             console.log("logged in!");
+            setMessage("you're logged in")
+            history.push('/');
         } else {
-            console.log("they don't match :(")
+            setMessage("sorry try again");
         }
     }
 
@@ -38,6 +41,7 @@ const Login = () => {
                 <input name="password" type="password" placeholder="password" onChange={handleChange} value={login.password}/>
                 <button>Login</button>
             </form>
+            <p>{message}</p>
         </div>
     )
 }

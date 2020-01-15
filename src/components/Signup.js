@@ -1,5 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import useForm from '../hooks/useForm'
+import useLocalStorage from '../hooks/useLocalStorage';
+
 
 const Signup = () => {
 
@@ -9,10 +11,13 @@ const Signup = () => {
         password: ''
     })
 
+    const [signup, setSignup] = useState("");
+
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(values);
+        setSignup(values);
         clearForm(e);
+        window.localStorage.setItem('signup', JSON.stringify(values));
     }
 
     return(
